@@ -4,7 +4,7 @@
 
 const char* WIFI_SSID = "TAN@unifi";
 const char* WIFI_PASSWORD = "abcdef5022187";
-const char* MQTT_BROKER = "34.133.5.85";
+const char* MQTT_BROKER = "104.197.55.228";
 const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "smart-boat-client";
 const int INTERVAL = 5000;  // Define the interval for telemetry data publication
@@ -115,24 +115,14 @@ void loop() {
     tone(buzzerPin, 1000); // Activate the onboard buzzer
     Serial.println("Obstacle detected!");
     client.publish(infraredSensorDeviceId, String(infraredValue).c_str());
+    digitalWrite(relayMotorPin, false); // Stop the motor
 
-    // Check if the timer is not started
-    if (obstacleStartTime == 0) {
-      obstacleStartTime = millis(); // Start the timer
-    }
   } else {
     // No obstacle, turn off LED and buzzer
     digitalWrite(ledPin, LOW);
     noTone(buzzerPin);
-    digitalWrite(relayMotorPin, true); //start the motor
+    digitalWrite(relayMotorPin, true); 
     client.publish(infraredSensorDeviceId, String(infraredValue).c_str());
-
-    // Check if the obstacle has been detected for more than 10 seconds
-    if (obstacleStartTime != 0 && millis() - obstacleStartTime > 10000) {
-      digitalWrite(relayMotorPin, false); // Stop the motor
-      Serial.println("Obstacle detected for more than 10 seconds. Stopping motor.");
-      obstacleStartTime = 0; // Reset the obstacle detection timer
-    }
   }
 
   delay(1000); // Delay for better readability in Serial Monitor
