@@ -124,6 +124,7 @@ void loop() {
     // No obstacle, turn off LED and buzzer
     digitalWrite(ledPin, LOW);
     noTone(buzzerPin);
+    digitalWrite(relayMotorPin, true); //start the motor
     client.publish(infraredSensorDeviceId, String(infraredValue).c_str());
 
     // Check if the obstacle has been detected for more than 10 seconds
