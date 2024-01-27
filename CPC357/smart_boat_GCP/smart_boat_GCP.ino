@@ -4,7 +4,7 @@
 
 const char* WIFI_SSID = "TAN@unifi";
 const char* WIFI_PASSWORD = "abcdef5022187";
-const char* MQTT_BROKER = "104.197.55.228";
+const char* MQTT_BROKER = "34.133.5.85";
 const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "smart-boat-client";
 const int INTERVAL = 5000;  // Define the interval for telemetry data publication
